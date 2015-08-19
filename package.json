@@ -1,0 +1,23 @@
+{
+  "name": "One-Pixel-Wide-Homepage",
+  "version": "0.1.0",
+  "description": "Web worker for interactive music video on One Pixel Wide homepage.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "4.12.x"
+  },
+  "engines": {
+    "node": "0.12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peterbrowse/opw-homepage-video"
+  },
+  "keywords": [
+    "node",
+    "heroku"
+  ]
+}
