@@ -10,7 +10,7 @@ var echonest = echojs({
 var spotify = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLEINT_SECRET,
-  redirectUri: APP_REDIRECT_CALLBACK_URL
+  redirectUri: process.env.APP_REDIRECT_CALLBACK_URL
 });
 
 	
