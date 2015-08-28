@@ -5,6 +5,7 @@ This is the web worker for the [One Pixel Wide](http://www.onepixelwide.co.uk/) 
 It uses spotify web api audio previews and echonest data to sync gifs to any song on spotify.
 
 ## Tasks
+- [	] Add in auth flow for spotify authorization code
 - [ ] Add in Spotify track request search call and return handler
 - [ ] Add in track selection call handler
 - [ ] Add in Echonest track details request handler

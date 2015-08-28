@@ -2,9 +2,9 @@
   "name": "One-Pixel-Wide-Homepage",
   "version": "0.1.001",
   "description": "Web worker for interactive music video on One Pixel Wide homepage.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "4.12.x",
