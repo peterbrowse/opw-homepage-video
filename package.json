@@ -1,6 +1,6 @@
 {
   "name": "One-Pixel-Wide-Homepage",
-  "version": "0.1.001",
+  "version": "0.2.000",
   "description": "Web worker for interactive music video on One Pixel Wide homepage.",
   "main": "app.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "spotify-web-api-node": "2.1.x"
   },
   "engines": {
-    "node": "0.12.x"
+    "node": "0.10.x"
   },
   "repository": {
     "type": "git",
