@@ -15,20 +15,15 @@ var spotifyApi = new SpotifyWebApi({
 	redirectUri: process.env.APP_REDIRECT_CALLBACK_URL
 });
 
-router.get('/test', function(request, response, next) {
-	response.send("requests");
-});
-
-
 router.get('/search', function(request, response, next) {
 	spotifyApi.searchTracks(testSearch, { limit: 10 }).then(function(data) {
 		console.log('Search by ' + testSearch, data.body);
-		response.status(200).send(data.body);
+		response.status(200).type('json').send(data.body);
 	}, function(err) {
 		console.error(err);
+		
 		response.status(503).send({ error: err});
 	});
 });
-
 
 module.exports = router;
