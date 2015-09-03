@@ -16,6 +16,8 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 router.get('/search', function(request, response, next) {
+	console.log(request);
+	
 	spotifyApi.searchTracks(testSearch, { limit: 10 }).then(function(data) {
 		console.log('Search by ' + testSearch, data.body);
 		response.status(200).type('json').send(data.body);
