@@ -25,7 +25,7 @@ router.get('/search', cors(), function(request, response, next) {
 
 router.get('/details', cors(), function(request, response, next) {
 	echonest('song/profile').get({
-		id: 'spotify-WW:track:' + request.query.track_id,
+		id: 'spotify-WW:song:' + request.query.track_id,
 		bucket: ['audio_summary']
 	}, function(err, json) {
 		response.status(200).type('json').send(json.response);
