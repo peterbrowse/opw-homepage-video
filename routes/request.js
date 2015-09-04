@@ -23,4 +23,12 @@ router.get('/search', cors(), function(request, response, next) {
 	});
 });
 
+router.get('/details', cors(), function(request, response, next) {
+	echonest('song/search').get({
+		id: request.query.track_id
+	}, function(err, json) {
+		response.status(200).type('json').send(json.response);
+	});
+});
+
 module.exports = router;
