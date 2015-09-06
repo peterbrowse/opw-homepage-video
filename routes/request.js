@@ -24,11 +24,36 @@ router.get('/search', cors(), function(request, response, next) {
 });
 
 router.get('/details', cors(), function(request, response, next) {
-	echonest('song/profile').get({
-		id: 'spotify-WW:track:' + request.query.track_id,
-		bucket: ['audio_summary']
+	var track_selection = request.query.track;
+	
+	echonest('song/search').get({
+		artist: track_selection.artists[0].name,
+		title: track_selection.name,
 	}, function(err, json) {
-		response.status(200).type('json').send(json.response);
+		if(json.response.status.code == 0 && json.response.status.message == 'Success'){
+			echonest('song/profile').get({
+				id: json.response.songs[0].id,
+				bucket: ['audio_summary']
+			}, function(err, json) {
+				if(err) {
+					console.log(err);
+					response.status(200).type('json').send({error: err});
+				} else {
+					if(json.response.status.code == 0 && json.response.status.message == 'Success'){
+						var fpm = 24 * 60;
+						var fps = Math.round(fpm / json.response.songs[0].audio_summary.tempo);
+						json.response.songs[0].audio_summary.fps = fps;
+						response.status(200).type('json').send(json.response);
+					} else {
+						console.log("Error: " + json.response.status.code + " - " + json.response.status.message);
+						response.status(200).type('json').send({error: json.response.status.message, error_code: json.response.status.code});
+					}
+				}
+			});
+		} else {
+			console.log(err);
+			response.status(200).type('json').send({error: err});
+		}
 	});
 });
 
