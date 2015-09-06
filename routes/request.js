@@ -43,7 +43,7 @@ router.get('/details', cors(), function(request, response, next) {
 						var fpm = 24 * 60;
 						var fps = Math.round(fpm / json.response.songs[0].audio_summary.tempo);
 						json.response.songs[0].audio_summary.fps = fps;
-						response.status(200).type('json').send(json.response);
+						response.status(200).type('json').send(json.response.songs[0].audio_summary);
 					} else {
 						console.log("Error: " + json.response.status.code + " - " + json.response.status.message);
 						response.status(200).type('json').send({error: json.response.status.message, error_code: json.response.status.code});
