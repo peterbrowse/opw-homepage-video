@@ -10,7 +10,9 @@
     "express": "4.12.x",
     "echojs": "0.1.x",
     "spotify-web-api-node": "2.1.x",
-    "cors": "2.7.x"
+    "cors": "2.7.x",
+    "bpm.js": "1.0.x",
+    "mediaserver": "0.0.x"
   },
   "engines": {
     "node": "0.12.x"

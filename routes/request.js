@@ -2,6 +2,8 @@ var express 		= require('express'),
 	echojs			= require('echojs'),
 	SpotifyWebApi 	= require('spotify-web-api-node'),
 	cors 			= require('cors'),
+	bpmSink			= require('bpm.js'),
+	ms 				= require('mediaserver'),
 	router 			= express.Router();
 
 var echonest = echojs({
@@ -29,8 +31,8 @@ router.get('/details', cors(), function(request, response, next) {
 	echonest('song/search').get({
 		artist: track_selection.artists[0].name,
 		title: track_selection.name,
-	}, function(err, json) {
-		if(json.response.status.code == 0 && json.response.status.message == 'Success'){
+	}, function(err, json) {	
+		if(json.response.status.code == 0 && json.response.status.message == 'Success' && json.response.songs[0] != null){
 			echonest('song/profile').get({
 				id: json.response.songs[0].id,
 				bucket: ['audio_summary']
@@ -50,8 +52,17 @@ router.get('/details', cors(), function(request, response, next) {
 					}
 				}
 			});
+		} else if(json.response.songs[0] == null) {
+			console.log('error: no songs');
+			response.status(200).type('json').send({error: 'No song details available.'});	
+/*
+			createAudioStream(track_selection.preview_url).pipe(bpmSink()).on("bpm", function(bpm){
+				console.log("bpm is %d", bpm);
+				response.status(200).type('json').send({error: 'No song details available.'});
+			});
+*/
 		} else {
-			console.log(err);
+			console.log('Line 58: ' + err);
 			response.status(200).type('json').send({error: err});
 		}
 	});
