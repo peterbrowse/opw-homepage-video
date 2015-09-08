@@ -2,8 +2,6 @@ var express 		= require('express'),
 	echojs			= require('echojs'),
 	SpotifyWebApi 	= require('spotify-web-api-node'),
 	cors 			= require('cors'),
-	bpmSink			= require('bpm.js'),
-	ms 				= require('mediaserver'),
 	router 			= express.Router();
 
 var echonest = echojs({
@@ -42,9 +40,10 @@ router.get('/details', cors(), function(request, response, next) {
 					response.status(200).type('json').send({error: err});
 				} else {
 					if(json.response.status.code == 0 && json.response.status.message == 'Success'){
-						var fpm = 24 * 60;
-						var fps = Math.round(fpm / json.response.songs[0].audio_summary.tempo);
+						var fpm = 25 * 60;
+						var fps = Math.round(fpm / json.response.songs[0].audio_summary.tempo); 
 						json.response.songs[0].audio_summary.fps = fps;
+						delete json.response.songs[0].audio_summary['analysis_url'];
 						response.status(200).type('json').send(json.response.songs[0].audio_summary);
 					} else {
 						console.log("Error: " + json.response.status.code + " - " + json.response.status.message);
@@ -54,18 +53,14 @@ router.get('/details', cors(), function(request, response, next) {
 			});
 		} else if(json.response.songs[0] == null) {
 			console.log('error: no songs');
-			response.status(200).type('json').send({error: 'No song details available.'});	
-/*
-			createAudioStream(track_selection.preview_url).pipe(bpmSink()).on("bpm", function(bpm){
-				console.log("bpm is %d", bpm);
-				response.status(200).type('json').send({error: 'No song details available.'});
-			});
-*/
+			response.status(200).type('json').send({error: "This is not the song you're looking for... search again."});
 		} else {
 			console.log('Line 58: ' + err);
 			response.status(200).type('json').send({error: err});
 		}
 	});
 });
+
+
 
 module.exports = router;
