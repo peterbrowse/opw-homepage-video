@@ -40,7 +40,7 @@ router.get('/details', cors(), function(request, response, next) {
 					response.status(200).type('json').send({error: err});
 				} else {
 					if(json.response.status.code == 0 && json.response.status.message == 'Success'){
-						var fpm = 25 * 60;
+						var fpm = 24 * 60;
 						var fps = Math.round(fpm / json.response.songs[0].audio_summary.tempo); 
 						json.response.songs[0].audio_summary.fps = fps;
 						delete json.response.songs[0].audio_summary['analysis_url'];
